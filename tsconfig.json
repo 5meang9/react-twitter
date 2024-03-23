@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
+    "baseUrl": "src",
     "lib": [
       "dom",
       "dom.iterable",
@@ -23,9 +24,10 @@
   "include": [
     "src"
   ],
-  "path":{
+  "paths":{
     "pages/*": ["pages/*"],
     "components/*": ["components/*"],
-    "firebaseApp/*": ["firebaseApp/*"],
+    "firebaseApp/*":["firebaseApp/*"],
+    "context/*":["context/*"],
   }
 }
