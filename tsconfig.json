@@ -22,5 +22,10 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "path":{
+    "pages/*": ["pages/*"],
+    "components/*": ["components/*"],
+    "firebaseApp/*": ["firebaseApp/*"],
+  }
 }
