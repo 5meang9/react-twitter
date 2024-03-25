@@ -38,7 +38,7 @@ export default function SignupForm(){
       if (!value?.match(validRegex)) {
         setError("이메일 형식이 올바르지 않습니다.");
       } else {
-        setError("");
+        setError(""); 
       }
     }
 
