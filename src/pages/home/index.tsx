@@ -1,5 +1,9 @@
 import PostForm from '../../components/posts/PostForm';
 import PostBox from "../../components/posts/PostBox";
+import { useContext, useEffect, useState } from 'react';
+import { collection, query, where, onSnapshot, orderBy } from "firebase/firestore";
+import AuthContext from 'context/AuthContext';
+import { db } from 'firebaseApp';
 
 
 export interface PostProps{
@@ -15,24 +19,26 @@ export interface PostProps{
 }
 
 
-const posts: PostProps[] = [
-  {
-    id: "1",
-    email: 'test@test.com',
-    content: '내용입니다.',
-    createdAt: '2024-01-01',
-    uid: '123123123'
-  },
-  {
-    id: "2",
-    email: 'test@test.com',
-    content: '내용입니다.2',
-    createdAt: '2024-01-01',
-    uid: '123123123'
-  }
-];
 
 export default function HomePage(){
+  const [posts, setPosts] = useState<PostProps[]>([]);
+  const {user} = useContext(AuthContext);
+
+
+  useEffect(()=>{
+    if(user){
+      let postsRef = collection(db, 'posts');
+      let postsQuery = query(postsRef, orderBy('createdAt', 'desc'));
+
+      onSnapshot(postsQuery, (snapShot) => {
+        let dataObj = snapShot.docs.map((doc) =>({
+          ...doc.data(),
+          id: doc?.id,
+        }));
+        setPosts(dataObj as PostProps[]);
+      });
+    }
+  },[user]);
 
   return (
     <div className="home">
@@ -47,9 +53,9 @@ export default function HomePage(){
       <PostForm />
       {/* Tweet posts */}
       <div className='post'>
-        {posts?.map((post) => (
+        {posts?.length > 0 ? posts?.map((post) => (
           <PostBox post={post} />
-        ))}
+        )) : <div className='post__no-posts'><div className='post__text'>게시글이 없습니다.</div></div>}
       </div>
     </div>
   )
