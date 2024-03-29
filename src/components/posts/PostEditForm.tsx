@@ -12,7 +12,7 @@ export default function PostEditForm(){
   const [post, setPost] = useState<PostProps | null>(null);
   const [content, setContent] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
-  const [hashTags, setHashTags] = useState<string>('');
+  const [hashTags, setHashTag] = useState<string>('');
   const navigate = useNavigate();
 
   const handleFileUpload = () =>{
@@ -62,7 +62,7 @@ export default function PostEditForm(){
   }
 
   const onChangeHashTag = (e: any) => {
-    setHashTags(e?.target?.value?.trim());
+    setHashTag(e?.target?.value?.trim());
   }
 
   const handleKeyUp = (e: any) => {
@@ -73,7 +73,7 @@ export default function PostEditForm(){
         toast.error('같은 태그가 있습니다.');
       }else{
         setTags((prev) => (prev?.length > 0 ? [...prev, hashTags] : [hashTags]));
-        setHashTags('');
+        setHashTag('');
       }
     }
   }
