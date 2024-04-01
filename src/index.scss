@@ -95,13 +95,13 @@ body {
 }
 
 // home 레이아웃
-.home{
-  &__search-div{
+.home {
+  &__search-div {
     display: flex;
     justify-content: center;
   }
 
-  &__search{
+  &__search {
     @extend .post-form__input;
     background-color: $backgroundLight;
     border-radius: 20px;
@@ -111,43 +111,46 @@ body {
     font-size: 15px;
     font-weight: 600;
 
-    &:focus{
+    &:focus {
       border: 1px solid $primaryColor;
       background-color: $activeBg;
     }
   }
 
-  &__top{
+  &__top {
     @extend .transparent;
     @extend .sticky;
   }
-  &__title{
+
+  &__title {
     background-color: transparent;
     width: 90%;
     padding: 16px;
     font-weight: 700;
     font-size: 20px;
   }
-  &__tabs{
+
+  &__tabs {
     background-color: transparent;
     width: 100%;
-    display: flex;
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  &__tab{
+  &__tab {
     background-color: transparent;
     text-align: center;
     font-weight: 500;
     padding: 16px;
     cursor: pointer;
 
-    &--active{
+    &--active {
       font-weight: 700;
       border-bottom: 2px solid $activeBorder;
     }
 
-    &:hover, &focus{
+    &:hover,
+    &:focus {
       background-color: $activeBg;
     }
   }
@@ -260,59 +263,63 @@ body {
 }
 
 // Post 레이아웃
-.post{
-  &__image-div{
+.post {
+  &__image-div {
     padding: 16px;
   }
-  &__header{
-    button{
+
+  &__header {
+    button {
       border: none;
       padding: 16px;
     }
-    &-btn{
+
+    &-btn {
       width: 20px;
       height: 20px;
       cursor: pointer;
     }
   }
 
-
-  &__no-posts{
+  &__no-posts {
     padding: 16px;
 
-    .posts__text{
+    .post__text {
       font-size: 14px;
       border: 1px solid $gray;
       padding: 16px;
       border-radius: 4px;
     }
   }
+
   padding-bottom: 40px;
-  &__flex{
+
+  &__flex {
     display: flex;
     gap: 4px;
     align-items: center;
   }
 
-  &__email, &__createdAt{
+  &__email,
+  &__createdAt {
     font-size: 12px;
     color: $grayText;
   }
 
-  &__box{
+  &__box {
     padding: 10px 0px;
     border-bottom: 1px solid $border;
-    text-decoration: none;
 
     a {
       text-decoration: none;
     }
-  
+
     &-profile {
       text-decoration: none;
       padding: 0px 10px;
 
-      &-img, &-icon{
+      &-img,
+      &-icon {
         width: 40px;
         height: 40px;
         border-radius: 50%;
@@ -320,13 +327,13 @@ body {
       }
     }
 
-    &-content{
+    &-content {
       display: block;
       font-weight: 500;
       padding: 16px 4px;
     }
 
-    &-footer{
+    &-footer {
       padding: 0 16px;
       margin-top: 10px;
       font-size: 14px;
@@ -334,39 +341,43 @@ body {
       gap: 8px;
       flex-direction: row-reverse;
 
-      button{
+      button {
         @extend .button;
 
-        &.post__delete{
+        &.post__delete {
           background-color: $danger;
 
-          &:hover, &:focus{
+          &:hover,
+          &:focus {
             background-color: $dangerDark;
           }
         }
 
-        &.post__edit{
+        &.post__edit {
           background-color: $gray;
-           a{
-            background-color: transparent;
-           }
 
-          &:hover, &:focus{
+          a {
+            background-color: transparent;
+          }
+
+          &:hover,
+          &:focus {
             background-color: $grayDark;
           }
         }
 
-        &.post__likes, &.post__comments{
+        &.post__likes,
+        &.post__comments {
           @extend .post__flex;
 
-          &:hover, &:focus{
+          &:hover,
+          &:focus {
             color: $gray;
           }
         }
       }
     }
   }
-  
 }
 
 //  form 레이아웃
