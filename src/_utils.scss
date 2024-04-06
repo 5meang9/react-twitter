@@ -11,36 +11,34 @@ $dangerDark: #dc26268e;
 $gray: #6b7280;
 $grayDark: #4c515b;
 
-$font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
-  'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+$font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 
-
-// Breakpoint
+// Breakpoints
 $mobile: 360px;
 $tablet: 600px;
 $desktop: 1024px;
 
 // media query mixin
-@mixin xsMobile{
-  @media (min-width: #{$mobile - 1px}) {
+@mixin xsMobile {
+  @media (max-width: #{$mobile - 1px}) {
+    @content;
+  }
+}
+@mixin mobile {
+  @media (min-width: $mobile) and (max-width: #{$tablet - 1px}) {
     @content;
   }
 }
 
-@mixin mobile{
-  @media(min-width: $mobile) and (max-width: #{$tablet - 1px}){
+@mixin tablet {
+  @media (min-width: $tablet) and (max-width: #{$desktop - 1px}) {
     @content;
   }
 }
 
-@mixin tablet{
-  @media(min-width: $tablet) and (max-width: #{$desktop - 1px}){
-    @content;
-  }
-}
-
-@mixin desktop{
-  @media(min-width: $desktop){
+@mixin desktop {
+  @media (min-width: $desktop) {
     @content;
   }
 }
