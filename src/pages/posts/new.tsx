@@ -1,5 +1,3 @@
-export default function PostNew(){
-  return(
-    <div>new</div>
-  )
+export default function PostNew() {
+  return <div>new</div>;
 }

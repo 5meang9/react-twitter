@@ -1,20 +1,20 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
   GithubAuthProvider,
-} from "firebase/auth";
-import { app } from "firebaseApp";
-import { toast } from "react-toastify";
+} from 'firebase/auth';
+import { app } from 'firebaseApp';
+import { toast } from 'react-toastify';
 
 export default function SignupForm() {
-  const [error, setError] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
+  const [error, setError] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
   const navigate = useNavigate();
 
   const onSubmit = async (e: any) => {
@@ -22,8 +22,8 @@ export default function SignupForm() {
     try {
       const auth = getAuth(app);
       await createUserWithEmailAndPassword(auth, email, password);
-      navigate("/");
-      toast.success("성공적으로 회원가입이 되었습니다.");
+      navigate('/');
+      toast.success('성공적으로 회원가입이 되었습니다.');
     } catch (error: any) {
       toast.error(error?.code);
     }
@@ -34,39 +34,38 @@ export default function SignupForm() {
       target: { name, value },
     } = e;
 
-    if (name === "email") {
+    if (name === 'email') {
       setEmail(value);
-      const validRegex =
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+      const validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
       if (!value?.match(validRegex)) {
-        setError("이메일 형식이 올바르지 않습니다.");
+        setError('이메일 형식이 올바르지 않습니다.');
       } else {
-        setError("");
+        setError('');
       }
     }
 
-    if (name === "password") {
+    if (name === 'password') {
       setPassword(value);
 
       if (value?.length < 8) {
-        setError("비밀번호는 8자리 이상 입력해주세요");
+        setError('비밀번호는 8자리 이상 입력해주세요');
       } else if (value !== passwordConfirmation) {
-        setError("비밀번호와 비밀번호 확인 값이 다릅니다.");
+        setError('비밀번호와 비밀번호 확인 값이 다릅니다.');
       } else {
-        setError("");
+        setError('');
       }
     }
 
-    if (name === "password_confirmation") {
+    if (name === 'password_confirmation') {
       setPasswordConfirmation(value);
 
       if (value?.length < 8) {
-        setError("비밀번호는 8자리 이상 입력해주세요");
+        setError('비밀번호는 8자리 이상 입력해주세요');
       } else if (value !== password) {
-        setError("비밀번호와 비밀번호 확인 값이 다릅니다.");
+        setError('비밀번호와 비밀번호 확인 값이 다릅니다.');
       } else {
-        setError("");
+        setError('');
       }
     }
   };
@@ -79,22 +78,19 @@ export default function SignupForm() {
     let provider;
     const auth = getAuth(app);
 
-    if (name === "google") {
+    if (name === 'google') {
       provider = new GoogleAuthProvider();
     }
 
-    if (name === "github") {
+    if (name === 'github') {
       provider = new GithubAuthProvider();
     }
 
-    await signInWithPopup(
-      auth,
-      provider as GithubAuthProvider | GoogleAuthProvider
-    )
+    await signInWithPopup(auth, provider as GithubAuthProvider | GoogleAuthProvider)
       .then((result) => {
         console.log(result);
-        navigate("/");
-        toast.success("로그인 되었습니다.");
+        navigate('/');
+        toast.success('로그인 되었습니다.');
       })
       .catch((error) => {
         console.log(error);
@@ -108,14 +104,7 @@ export default function SignupForm() {
       <div className="form__title">회원가입</div>
       <div className="form__block">
         <label htmlFor="email">이메일</label>
-        <input
-          type="text"
-          name="email"
-          id="email"
-          value={email}
-          required
-          onChange={onChange}
-        />
+        <input type="text" name="email" id="email" value={email} required onChange={onChange} />
       </div>
       <div className="form__block">
         <label htmlFor="password">비밀번호</label>
@@ -152,11 +141,7 @@ export default function SignupForm() {
         </Link>
       </div>
       <div className="form__block--lg">
-        <button
-          type="submit"
-          className="form__btn--submit"
-          disabled={error?.length > 0}
-        >
+        <button type="submit" className="form__btn--submit" disabled={error?.length > 0}>
           회원가입
         </button>
       </div>

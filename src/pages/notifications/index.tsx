@@ -1,10 +1,10 @@
-import NotificationBox from "components/notifications/NotificationBox";
-import AuthContext from "context/AuthContext";
-import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
-import { db } from "firebaseApp";
-import { useContext, useEffect, useState } from "react"
+import NotificationBox from 'components/notifications/NotificationBox';
+import AuthContext from 'context/AuthContext';
+import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
+import { db } from 'firebaseApp';
+import { useContext, useEffect, useState } from 'react';
 
-export interface NotificationProps{
+export interface NotificationProps {
   id: string;
   uid: string;
   url: string;
@@ -13,13 +13,12 @@ export interface NotificationProps{
   createdAt: string;
 }
 
-export default function NotificationsPage(){
-
-  const {user} = useContext(AuthContext);
+export default function NotificationsPage() {
+  const { user } = useContext(AuthContext);
   const [notifications, setNotifications] = useState<NotificationProps[]>([]);
 
-  useEffect(()=> {
-    if(user){
+  useEffect(() => {
+    if (user) {
       let ref = collection(db, 'notifications');
       let notificationQuery = query(
         ref,
@@ -27,18 +26,18 @@ export default function NotificationsPage(){
         orderBy('createdAt', 'desc')
       );
 
-      onSnapshot(notificationQuery, (snapShot) =>{
+      onSnapshot(notificationQuery, (snapShot) => {
         let dataObj = snapShot.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
         }));
 
         setNotifications(dataObj as NotificationProps[]);
-      })
+      });
     }
-  },[])
+  }, []);
 
-  return(
+  return (
     <div className="home">
       <div className="home__top">
         <div className="home__title">
@@ -47,7 +46,7 @@ export default function NotificationsPage(){
         <div className="post">
           {notifications?.length > 0 ? (
             notifications?.map((noti) => <NotificationBox notification={noti} key={noti.id} />)
-          ):(
+          ) : (
             <div className="post__no-posts">
               <div className="post__text">알림이 없습니다.</div>
             </div>
@@ -55,5 +54,5 @@ export default function NotificationsPage(){
         </div>
       </div>
     </div>
-  )
+  );
 }

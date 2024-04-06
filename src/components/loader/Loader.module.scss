@@ -1,6 +1,6 @@
 $primaryColor: #60a5fa;
 
-.loader{
+.loader {
   width: 48px;
   height: 48px;
   position: absolute;
@@ -19,10 +19,10 @@ $primaryColor: #60a5fa;
 }
 
 @keyframes rotation {
-  0%{
+  0% {
     transform: rotate(0deg);
   }
-  100%{
+  100% {
     transform: rotate(360deg);
   }
 }
