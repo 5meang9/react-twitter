@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { updateProfile } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import useTranslation from 'hooks/useTranslation';
 
 const STORAGE_DOWNLOAD_URL_STR = 'https://firebasestorage.googleapis.com';
 
@@ -16,6 +17,7 @@ export default function ProfileEdit() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const t = useTranslation();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -109,7 +111,7 @@ export default function ProfileEdit() {
             <div className="post-form__attachment">
               <img src={imageUrl} alt="attachement" width={100} height={100} />
               <button type="button" onClick={handleDeleteImage} className="post-form__clear-btn">
-                삭제
+                {t('BUTTON_DELETE')}
               </button>
             </div>
           )}
@@ -128,7 +130,7 @@ export default function ProfileEdit() {
               onChange={handleFileUpload}
               className="hidden"
             />
-            <input type="submit" value="프로필 수정" className="post-form__submit-btn" />
+            <input type="submit" value={t('BUTTON_EDIT_PROFILE')} className="post-form__submit-btn" />
           </div>
         </div>
       </form>

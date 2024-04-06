@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   getAuth,
@@ -9,6 +9,7 @@ import {
 } from 'firebase/auth';
 import { app } from 'firebaseApp';
 import { toast } from 'react-toastify';
+import useTranslation from 'hooks/useTranslation';
 
 export default function SignupForm() {
   const [error, setError] = useState<string>('');
@@ -16,6 +17,7 @@ export default function SignupForm() {
   const [password, setPassword] = useState<string>('');
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
   const navigate = useNavigate();
+  const t = useTranslation();
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -29,6 +31,7 @@ export default function SignupForm() {
     }
   };
 
+  // eslint-disable-next-line no-undef
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
@@ -87,13 +90,12 @@ export default function SignupForm() {
     }
 
     await signInWithPopup(auth, provider as GithubAuthProvider | GoogleAuthProvider)
-      .then((result) => {
-        console.log(result);
+      // eslint-disable-next-line no-unused-vars
+      .then((_result) => {
         navigate('/');
         toast.success('로그인 되었습니다.');
       })
       .catch((error) => {
-        console.log(error);
         const errorMessage = error?.message;
         toast?.error(errorMessage);
       });
@@ -101,13 +103,13 @@ export default function SignupForm() {
 
   return (
     <form className="form form--lg" onSubmit={onSubmit}>
-      <div className="form__title">회원가입</div>
+      <div className="form__title">{t('MENU_SIGNUP')}</div>
       <div className="form__block">
-        <label htmlFor="email">이메일</label>
+        <label htmlFor="email">{t('FORM_EMAIL')}</label>
         <input type="text" name="email" id="email" value={email} required onChange={onChange} />
       </div>
       <div className="form__block">
-        <label htmlFor="password">비밀번호</label>
+        <label htmlFor="password">{t('FORM_PASSWORD')}</label>
         <input
           type="password"
           name="password"
@@ -118,7 +120,7 @@ export default function SignupForm() {
         />
       </div>
       <div className="form__block">
-        <label htmlFor="password_confirmation">비밀번호 확인</label>
+        <label htmlFor="password_confirmation">{t('FORM_PASSWORD_CHECK')}</label>
         <input
           type="password"
           name="password_confirmation"
@@ -135,14 +137,14 @@ export default function SignupForm() {
       )}
 
       <div className="form__block">
-        계정이 있으신가요?
+        {t('YES_ACCOUNT')}
         <Link to="/users/login" className="form__link">
-          로그인하기
+          {t('SIGNIN_LINK')}
         </Link>
       </div>
       <div className="form__block--lg">
         <button type="submit" className="form__btn--submit" disabled={error?.length > 0}>
-          회원가입
+          {t('MENU_SIGNUP')}
         </button>
       </div>
       <div className="form__block">
@@ -152,7 +154,7 @@ export default function SignupForm() {
           className="form__btn--google"
           onClick={onClickSocialLogin}
         >
-          Google로 회원가입
+          {t('SIGNUP_GOOGLE')}
         </button>
       </div>
       <div className="form__block">
@@ -162,7 +164,7 @@ export default function SignupForm() {
           className="form__btn--github"
           onClick={onClickSocialLogin}
         >
-          Github으로 회원가입
+          {t('SIGNUP_GITHUB')}
         </button>
       </div>
     </form>

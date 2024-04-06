@@ -3,6 +3,7 @@ import PostBox from "components/posts/PostBox";
 import AuthContext from "context/AuthContext";
 import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { db } from "firebaseApp";
+import useTranslation from "hooks/useTranslation";
 import { PostProps } from "pages/home";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +22,7 @@ export default function ProfilePage(){
   const navigate = useNavigate();
   const {user} = useContext(AuthContext);
   const [language, setLanguage] = useRecoilState(languageState);
+  const t = useTranslation();
 
   const onClickLanguage = () => {
     setLanguage(language === 'ko' ? 'en' : 'ko');
@@ -63,7 +65,7 @@ export default function ProfilePage(){
               type="button" 
               className="profile__btn" 
               onClick={() => navigate('/profile/edit')}
-            >프로필 수정</button>
+            >{t('BUTTON_EDIT_PROFILE')}</button>
             <button type="button" className="profile__btn--language" onClick={onClickLanguage}>{language === 'ko' ? '한국어': 'English'}</button>
           </div>
         </div>

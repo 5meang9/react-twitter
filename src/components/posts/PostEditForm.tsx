@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { FiImage } from 'react-icons/fi';
 import { useState } from 'react';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
@@ -9,8 +9,8 @@ import { PostProps } from 'pages/home';
 import { getDownloadURL, ref, uploadString, deleteObject } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import AuthContext from 'context/AuthContext';
-import { error } from 'console';
 import PostHeader from './Header';
+import useTranslation from 'hooks/useTranslation';
 
 export default function PostEditForm() {
   const params = useParams();
@@ -22,6 +22,7 @@ export default function PostEditForm() {
   const [imageFile, setImageFile] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const { user } = useContext(AuthContext);
+  const t = useTranslation();
 
   const handleFileUpload = (e: any) => {
     const {
@@ -33,6 +34,7 @@ export default function PostEditForm() {
     fileReader?.readAsDataURL(file);
 
     fileReader.onloadend = (e: any) => {
+      // eslint-disable-next-line no-unsafe-optional-chaining
       const { result } = e?.currentTarget;
       setImageFile(result);
     };
@@ -184,7 +186,7 @@ export default function PostEditForm() {
 
           <input
             type="submit"
-            value="수정"
+            value={t('BUTTON_EDIT')}
             className="post-form__submit-btn"
             disabled={isSubmitting}
           />
